@@ -2,7 +2,7 @@ const prog = {
  box: document.querySelectorAll('.box'),
  flag: true,
  clickMove: function(){
-						if(event.repeat){return}								//prevent key-hold bug 
+						if(event.repeat){return}
 						this.box.forEach(x => x.classList.remove('key1'));
 						let boxD = document.querySelectorAll('div[data-key]');   
      
