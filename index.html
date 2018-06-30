@@ -2,19 +2,71 @@
 <html>
     <head>
         
-        <title>Music kit</title>
+        <title>Template</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 		
         <link rel="stylesheet" href="style.css" type="text/css">
 		<link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+        <script type="text/javascript" src="js/paper.js"></script>
+        
+        <script type='text/paperscript' canvas='canv'>
+        
+        var crc = '';
+        var arr = [];
+        var arrC = [];
+        var arr2 = [65,83,68,70,71,72,74,75,76];
+        var p='';
+        
+        for(var x=0;x<40;x++){
+        
+        var point = new Point(Math.floor(Math.random()*view.size.width),Math.floor(Math.random()*view.size.height));
+        crc = new Path.Circle(point, 18);
+        
+        var c = randomColors();
+        crc.fillColor = 'rgb('+c+')';
+        arrC.push(crc);
+        
+        }
+        
+        function randomColors(arg){
+
+            var a = Math.floor(Math.random()*255);
+            var b = Math.floor(Math.random()*255);
+            var c = Math.floor(Math.random()*255);
+            return a + ',' + b + ',' + c
+        }
+        
+        function down(e){
+            var c = randomColors();
+
+            if(event.repeat || !arr2.includes(e.keyCode)){return};
+            var point = new Point(Math.floor(Math.random()*view.size.width),Math.floor(Math.random()*view.size.height));
+
+            crc = new Path.Circle(point, 170);
+
+            crc.fillColor = 'rgb('+c+')';
+            arr.push(crc);
+
+        }
+
+        function onFrame(){
+        
+            arr.forEach(function(x){x.fillColor.hue += Math.floor(Math.random()*5);
+            if(x.area>=250){x.scale(.96)}});
+            arrC.forEach(function(x){x.fillColor.hue += 1})
+        }
+
+      window.addEventListener('keydown',down);
+        </script>
     
     </head>
     
     <body>
-    
+        
+        <canvas id='canv' resize> </canvas>  
         <div class="container">
-
+  
 
 			<div class='box A' data-key = '65'>A</div>
 			<div class='box S' data-key = '83'>S</div>
@@ -40,6 +92,7 @@
 
 
 		</div>
+            
 
         
     </body>
